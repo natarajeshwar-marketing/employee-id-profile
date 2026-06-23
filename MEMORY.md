@@ -2,14 +2,15 @@
 
 ## Project Context
 This is a small employee card project called `employee-id-profile` located in `/Users/mohammednatraj/Projects/employee-id-profile`.
+- **GitHub Repository**: `https://github.com/natarajeshwar-marketing/employee-id-profile.git` (Pushed to main branch).
 
 ## File Structure
-- `employee_id_profile.html`: Main page file.
+- `index.html`: Main page file.
 - `style.css`: External stylesheet containing Tajawal font imports and Arabic typography definitions.
 - `logo.png`: Branding logo file.
 
 ## Layout Details
-- The card is defined inside `employee_id_profile.html`.
+- The card is defined inside `index.html`.
 - The layout is structured as a row-based design to align elements exactly as shown in the physical ID card photo:
   - **Top Row**: Centers the Employee Name (left) vertically relative to the Portrait Photo (right).
   - **Middle Row**: Aligns the Job Title and details (left) to start at the top edge of the QR code (right).
