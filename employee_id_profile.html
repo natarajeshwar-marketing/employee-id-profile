@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee ID Profile</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4 font-sans gap-5">
+
+    <!-- ID Card Container -->
+    <div class="relative w-[330px] h-[520px] sm:w-[350px] sm:h-[550px] bg-gradient-to-b from-[#382f63] to-[#231b46] rounded-2xl shadow-2xl border border-white/10 flex flex-col p-6 justify-between">
+            
+            <!-- Top Section: Names (left) and Photo (right) -->
+            <div class="flex justify-between items-center gap-4">
+                <!-- Names -->
+                <div class="flex flex-col text-white">
+                    <h1 class="text-[22px] font-bold font-arabic leading-tight text-left" dir="rtl">فياز كازي</h1>
+                    <h2 class="text-lg font-bold tracking-wide mt-1">Faiyaz Kazi</h2>
+                </div>
+                
+                <!-- Photo -->
+                <div class="w-[110px] h-[145px] bg-white p-1 rounded-sm shadow-sm flex-shrink-0">
+                    <img 
+                        src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&q=80" 
+                        alt="Faiyaz Kazi" 
+                        class="w-full h-full object-cover"
+                    />
+                </div>
+            </div>
+
+            <!-- Middle Section: Details (left) and QR Code (right) -->
+            <div class="flex justify-between items-start gap-4 mt-5">
+                <!-- Details -->
+                <div class="flex flex-col flex-1">
+                    <!-- Job Title -->
+                    <div class="flex flex-col">
+                        <span class="text-[13px] font-bold font-arabic leading-tight text-white text-left" dir="rtl">مدير خدمات المعلومات</span>
+                        <span class="text-sm font-semibold text-white/90 leading-tight mt-1">Information Services<br>Manager</span>
+                    </div>
+
+                    <!-- Joining Date -->
+                    <div class="flex flex-col mt-5">
+                        <span class="text-[11px] text-[#9c94c0] font-semibold uppercase tracking-wider">Joining Date</span>
+                        <span class="text-sm font-bold text-white mt-0.5">1-Jun-2023</span>
+                    </div>
+
+                    <!-- Employee ID -->
+                    <div class="flex flex-col mt-4">
+                        <span class="text-[11px] text-[#9c94c0] font-semibold uppercase tracking-wider">Employee ID</span>
+                        <span class="text-sm font-bold text-white mt-0.5">251690</span>
+                    </div>
+                </div>
+
+                <!-- QR Code -->
+                <div class="w-[110px] h-[110px] flex-shrink-0">
+                    <img 
+                        src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BEGIN%3AVCARD%0AVERSION%3A3.0%0AFN%3AFaiyaz%20Kazi%0ATITLE%3AInformation%20Services%20Manager%0AEND%3AVCARD&color=000000&bgcolor=ffffff" 
+                        alt="QR Code" 
+                        class="w-full h-full invert mix-blend-screen opacity-90"
+                    />
+                </div>
+            </div>
+
+            <!-- Bottom Section: Logo -->
+            <div class="mt-auto pt-6 flex flex-col">
+                <img 
+                    src="logo.png" 
+                    alt="Musanadah Logo" 
+                    class="w-[75%] h-auto object-contain object-left"
+                />
+            </div>
+
+        </div>
+
+    <!-- Add to Contact Action Button -->
+    <div class="w-full max-w-[330px] sm:w-[350px]">
+        <button 
+            id="saveContactBtn"
+            class="w-full flex items-center justify-center gap-2 bg-[#5ac4e8] hover:bg-[#48a9cb] text-[#1e173b] font-bold py-4 px-6 rounded-xl shadow-lg transition-all active:scale-95"
+        >
+            <!-- UserPlus SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <line x1="19" y1="8" x2="19" y2="14"></line>
+                <line x1="22" y1="11" x2="16" y2="11"></line>
+            </svg>
+            <span>Save to Contacts</span>
+        </button>
+    </div>
+
+    <!-- Script to handle vCard Generation -->
+    <script>
+        document.getElementById('saveContactBtn').addEventListener('click', function() {
+            // Employee data for the vCard
+            const employee = {
+                nameEn: 'Faiyaz Kazi',
+                titleEn: 'Information Services Manager',
+                empId: '251690'
+            };
+
+            // Build vCard format string
+            const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:${employee.nameEn}
+N:${employee.nameEn.split(' ').pop()};${employee.nameEn.split(' ')[0]};;;
+TITLE:${employee.titleEn}
+ORG:Musanadah
+NOTE:Employee ID: ${employee.empId}
+END:VCARD`;
+
+            // Create blob and download link
+            const blob = new Blob([vcard], { type: 'text/vcard' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            
+            link.href = url;
+            link.download = `${employee.nameEn.replace(' ', '_')}.vcf`;
+            
+            // Append, click, and cleanup
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>
